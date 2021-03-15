@@ -1,7 +1,11 @@
 {
-    "manifest_version": 3,
+    "manifest_version": 2,
     "name": "Github Jira Pull Request helper",
     "version": "0.1",
     "description": "A browser extension that autofills certain fields when a pull request is opened in Github.",
-    "author": "Jijo James"
+    "author": "Jijo James",
+    "permissions": ["contextMenus"],
+    "background":  {
+      "scripts": ["script.js"]
+    }
   }
