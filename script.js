@@ -1,9 +1,10 @@
 "use strict";
 
-const showForPages = [];
+const showForPages = ["https://*.github.com/*"];
 
-function contextMenuClick(info) {
-  console.log(info);
+function contextMenuClick(info, tab) {
+  // Send an event to corresponding tab
+  chrome.tabs.sendMessage(tab.id, "populate_pull_request");
 }
 
 chrome.contextMenus.create({
