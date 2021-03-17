@@ -1,9 +1,11 @@
 chrome.runtime.onMessage.addListener(async () => {
-  const branchName = document.URL.split("/").reverse()[0].split("?")[0];
-  const bugBranchNames = ["bug"];
-  const featureBranchNames = ["feature"];
-  const isBug = new RegExp(bugBranchNames.join("|")).test(branchName);
-  const isFeature = new RegExp(featureBranchNames.join("|")).test(branchName);
+  const splitUrl = document.URL.split("/").reverse();
+  const branchType = splitUrl[1];
+  const branchName = splitUrl[0].split("?")[0];
+  const bugBranchNames = prHelperConfig.branchSelector.bug;
+  const featureBranchNames = prHelperConfig.branchSelector.feature;
+  const isBug = new RegExp(bugBranchNames.join("|")).test(branchType);
+  const isFeature = new RegExp(featureBranchNames.join("|")).test(branchType);
   let labelText = "";
   if (isBug) {
     labelText = "bug";
@@ -15,10 +17,25 @@ chrome.runtime.onMessage.addListener(async () => {
   await addReviewers();
   // Add label
   await addLabel(labelText);
+
+  // Add description
+  const newLine = String.fromCharCode(13, 10);
+  const prDescription = prHelperConfig.prText
+    .replaceAll("{BRANCH_NAME}", branchName)
+    .replaceAll("{NEWLINE}", newLine);
+  document.getElementById("pull_request_body").value = prDescription;
+
+  // Add Title
+  document.getElementById(
+    "pull_request_title"
+  ).value = prHelperConfig.prTitle.replaceAll("{ID}", branchName);
+  document
+    .getElementById("pull_request_title")
+    .dispatchEvent(new Event("input", { bubbles: true }));
 });
 
 const addReviewers = async () => {
-  const reviewerList = [];
+  const reviewerList = prHelperConfig.reviewerList;
   await togglePopup("#reviewers-select-menu .discussion-sidebar-toggle");
   for (let i = 0; i < reviewerList.length; i++) {
     await selectElementInPopup(
@@ -51,7 +68,10 @@ const selectElementInPopup = async (searchText, searchElem, elem) => {
     .getElementById(searchElem)
     .dispatchEvent(new Event("input", { bubbles: true }));
   await sleepForSomeTime(1000);
-  document.querySelectorAll(elem)[0].click();
+  const users = document.querySelectorAll(elem);
+  if (users.length > 0) {
+    users[0].click();
+  }
 };
 
 const sleepForSomeTime = (ms = 0) => {
