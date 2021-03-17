@@ -11,7 +11,7 @@
   "content_scripts": [
     {
       "matches": ["https://*.github.com/*"],
-      "js": ["populate.js"]
+      "js": ["pr-helper-config.js", "populate.js"]
     }
   ]
 }
