@@ -25,6 +25,8 @@ A context menu will be created in the compare when a new pull request is being c
 
 
 ### Config ###
+Copy config.sample.js as config.js.
+
 Field | Type  | Description | Default |
 ------|-------|-------------|---------|
 branchSelector | Object |  | |
