@@ -34,3 +34,7 @@ prTitle| String | Title field for pull request | "" |
 prText| String | Body field of pull request | "" |
 reviewerList  | Array | List of github users to be added as reviewers | [] |
 
+### Documentation ###
+[Getting started](https://developer.chrome.com/docs/extensions/mv3/getstarted/)
+[Extensions Architecture](https://developer.chrome.com/docs/extensions/mv3/architecture-overview/)
+
