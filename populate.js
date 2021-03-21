@@ -11,6 +11,10 @@ const domElementSelectors = {
   },
   title: "pull_request_title",
   body: "pull_request_body",
+  commits: {
+    timeline: ".TimelineItem--condensed",
+    commit: ".TimelineItem--condensed a",
+  },
 };
 
 const defaultConfig = {
@@ -49,11 +53,7 @@ chrome.runtime.onMessage.addListener(async () => {
   }
 
   // Add Title
-  const titleElem = document.getElementById(domElementSelectors.title);
-  if (titleElem) {
-    titleElem.value = configList.prTitle.replaceAll("{ID}", branchName);
-    titleElem.dispatchEvent(new Event("input", { bubbles: true }));
-  }
+  await addTitle(branchName);
 });
 
 const getLabelText = (branchType) => {
@@ -89,6 +89,25 @@ const addLabel = async (labelText) => {
     domElementSelectors.labels.select
   );
   await togglePopup(domElementSelectors.labels.popup);
+};
+
+const addTitle = async (branchName) => {
+  const titleElem = document.getElementById(domElementSelectors.title);
+  if (titleElem) {
+    // If only 1 commit is present, use its text.
+    const commitElements = document.querySelectorAll(
+      domElementSelectors.commits.timeline
+    );
+    if (commitElements.length === 1) {
+      const commitMessage = document.querySelectorAll(
+        domElementSelectors.commits.commit
+      );
+      titleElem.value = commitMessage[1].text.trim();
+    } else {
+      titleElem.value = configList.prTitle.replaceAll("{ID}", branchName);
+    }
+    titleElem.dispatchEvent(new Event("input", { bubbles: true }));
+  }
 };
 
 const togglePopup = async (cogIcon) => {
