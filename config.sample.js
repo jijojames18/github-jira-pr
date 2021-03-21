@@ -1,4 +1,4 @@
-const prHelperConfig = {
+const config = {
   branchSelector: {
     bug: ["bug"],
     feature: ["feature"],
