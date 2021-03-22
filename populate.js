@@ -27,9 +27,13 @@ const defaultConfig = {
   reviewerList: [],
 };
 
+window.extensionWindow = (function () {
+  return window.msBrowser || window.browser || window.chrome;
+})();
+
 const configList = Object.assign({}, defaultConfig, config);
 
-chrome.runtime.onMessage.addListener(async () => {
+extensionWindow.runtime.onMessage.addListener(async () => {
   const splitUrl = document.URL.split("/").reverse();
   const labelText = getLabelText(splitUrl[1]);
   const branchName = splitUrl[0].split("?")[0];

@@ -5,12 +5,16 @@ const menuEvent = "populate_pull_request";
 const menuTitle = "Populate Pull Request";
 const menuContext = ["editable"];
 
+window.extensionWindow = (function () {
+  return window.msBrowser || window.browser || window.chrome;
+})();
+
 function contextMenuClick(info, tab) {
   // Send an event to corresponding tab
-  chrome.tabs.sendMessage(tab.id, menuEvent);
+  extensionWindow.tabs.sendMessage(tab.id, menuEvent);
 }
 
-chrome.contextMenus.create({
+extensionWindow.contextMenus.create({
   title: menuTitle,
   contexts: menuContext,
   onclick: contextMenuClick,
