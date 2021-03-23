@@ -27,37 +27,41 @@ const defaultConfig = {
   reviewerList: [],
 };
 
+const eventName = "populate_pull_request";
+
 window.extensionWindow = (function () {
   return window.msBrowser || window.browser || window.chrome;
 })();
 
 const configList = Object.assign({}, defaultConfig, config);
 
-extensionWindow.runtime.onMessage.addListener(async () => {
-  const splitUrl = document.URL.split("/").reverse();
-  const labelText = getLabelText(splitUrl[1]);
-  const branchName = splitUrl[0].split("?")[0];
+extensionWindow.runtime.onMessage.addListener(async (event) => {
+  if (event === eventName) {
+    const splitUrl = document.URL.split("/").reverse();
+    const labelText = getLabelText(splitUrl[1]);
+    const branchName = splitUrl[0].split("?")[0];
 
-  // Add reviewers
-  await addReviewers();
+    // Add reviewers
+    await addReviewers();
 
-  if (labelText) {
-    // Add label
-    await addLabel(labelText);
+    if (labelText) {
+      // Add label
+      await addLabel(labelText);
+    }
+
+    // Add description
+    const bodyElem = document.getElementById(domElementSelectors.body);
+    if (bodyElem) {
+      const newLine = String.fromCharCode(13, 10);
+      const prDescription = configList.prText
+        .replaceAll("{BRANCH_NAME}", branchName)
+        .replaceAll("{NEWLINE}", newLine);
+      bodyElem.value = prDescription;
+    }
+
+    // Add Title
+    await addTitle(branchName);
   }
-
-  // Add description
-  const bodyElem = document.getElementById(domElementSelectors.body);
-  if (bodyElem) {
-    const newLine = String.fromCharCode(13, 10);
-    const prDescription = configList.prText
-      .replaceAll("{BRANCH_NAME}", branchName)
-      .replaceAll("{NEWLINE}", newLine);
-    bodyElem.value = prDescription;
-  }
-
-  // Add Title
-  await addTitle(branchName);
 });
 
 const getLabelText = (branchType) => {
