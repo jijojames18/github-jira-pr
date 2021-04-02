@@ -35,8 +35,8 @@ window.extensionWindow = (function () {
 
 const configList = Object.assign({}, defaultConfig, config);
 
-extensionWindow.runtime.onMessage.addListener(async (event) => {
-  if (event === eventName) {
+extensionWindow.runtime.onMessage.addListener(async (eventDetails) => {
+  if (typeof eventDetails === "object" && eventDetails.event === eventName) {
     const splitUrl = document.URL.split("/").reverse();
     const labelText = getLabelText(splitUrl[1]);
     const branchName = splitUrl[0].split("?")[0];
