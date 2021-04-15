@@ -16,17 +16,15 @@ const extensionWindow = (function () {
 })();
 
 if (extensionWindow) {
-  extensionWindow.runtime.onInstalled.addListener(function () {
-    extensionWindow.contextMenus.create({
-      id: menuEvent,
-      title: menuTitle,
-      contexts: menuContext,
-      documentUrlPatterns: showForPages,
-    });
+  extensionWindow.contextMenus.create({
+    id: menuEvent,
+    title: menuTitle,
+    contexts: menuContext,
+    documentUrlPatterns: showForPages,
+  });
 
-    extensionWindow.contextMenus.onClicked.addListener(function (info, tab) {
-      // Send an event to corresponding tab
-      extensionWindow.tabs.sendMessage(tab.id, { event: menuEvent });
-    });
+  extensionWindow.contextMenus.onClicked.addListener(function (info, tab) {
+    // Send an event to corresponding tab
+    extensionWindow.tabs.sendMessage(tab.id, { event: menuEvent });
   });
 }
