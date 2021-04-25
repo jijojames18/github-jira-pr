@@ -1,13 +1,10 @@
 var path = require("path"),
   alias = require("./alias"),
   CopyWebpackPlugin = require("copy-webpack-plugin"),
-  HtmlWebpackPlugin = require("html-webpack-plugin"),
-  WriteFilePlugin = require("write-file-webpack-plugin"),
-  MiniCssExtractPlugin = require("mini-css-extract-plugin");
+  WriteFilePlugin = require("write-file-webpack-plugin");
 
 var options = {
   entry: {
-    popup: path.join(__dirname, "src", "js", "popup.js"),
     "content-script": path.join(__dirname, "src", "js", "content-script.js"),
     "service-worker": path.join(__dirname, "src", "js", "service-worker.js"),
   },
@@ -20,18 +17,6 @@ var options = {
   },
   resolve: {
     alias,
-  },
-  module: {
-    rules: [
-      {
-        test: /\.css$/i,
-        use: [MiniCssExtractPlugin.loader, "css-loader"],
-      },
-      {
-        test: /\.(scss)$/i,
-        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
-      },
-    ],
   },
   plugins: [
     new CopyWebpackPlugin([
@@ -50,14 +35,6 @@ var options = {
         },
       },
     ]),
-    new HtmlWebpackPlugin({
-      template: path.join(__dirname, "src", "popup.html"),
-      filename: "popup.html",
-      chunks: ["popup"],
-    }),
-    new MiniCssExtractPlugin({
-      filename: "[name].css",
-    }),
     new WriteFilePlugin(),
   ],
 };
