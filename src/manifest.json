@@ -1,15 +1,13 @@
 {
   "manifest_version": 3,
+  "permissions": ["contextMenus"],
   "background": {
     "service_worker": "service-worker.js"
   },
-  "action": {
-    "default_popup": "popup.html"
-  },
   "content_scripts": [
     {
+      "matches": ["https://*.github.com/*"],
       "js": ["content-script.js"],
-      "matches": ["https://*.google.com/*"],
       "run_at": "document_start"
     }
   ]
