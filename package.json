@@ -1,0 +1,34 @@
+{
+  "name": "github-jira-pr",
+  "version": "1.0.0",
+  "description": "A browser extension that automatically fills certain fields when opening a pull request in Github.",
+  "scripts": {
+    "build": "node scripts/build.js",
+    "dev": "watch \"npm run build\" src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jijojames18/github-jira-pr.git"
+  },
+  "author": "Jijo James",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jijojames18/github-jira-pr/issues"
+  },
+  "homepage": "https://github.com/jijojames18/github-jira-pr#readme",
+  "devDependencies": {
+    "copy-webpack-plugin": "5.0.5",
+    "css-loader": "^5.2.2",
+    "fs-extra": "8.1.0",
+    "html-webpack-plugin": "3.2.0",
+    "mini-css-extract-plugin": "^1.5.0",
+    "node-sass": "^5.0.0",
+    "sass": "^1.32.10",
+    "sass-loader": "^11.0.1",
+    "style-loader": "^1.3.0",
+    "watch": "^1.0.2",
+    "webpack": "^4.41.2",
+    "webpack-cli": "3.3.10",
+    "write-file-webpack-plugin": "4.5.1"
+  }
+}
