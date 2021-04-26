@@ -1,16 +1,12 @@
 // Service worker
-import {
-  MENU_EVENT,
-  MENU_TITLE,
-  MENU_CONTEXT,
-  SHOW_FOR_PAGES,
-} from "@js/common/constants";
+import { MENU_EVENT, MENU_CONTEXT, SHOW_FOR_PAGES } from "@js/common/constants";
 import extensionWindow from "@js/common/context";
+import config from "@/config";
 
 if (extensionWindow) {
   extensionWindow.contextMenus.create({
     id: MENU_EVENT,
-    title: MENU_TITLE,
+    title: config.menuTitle,
     contexts: MENU_CONTEXT,
     documentUrlPatterns: SHOW_FOR_PAGES,
   });

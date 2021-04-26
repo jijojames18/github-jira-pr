@@ -2,7 +2,6 @@
 
 export const SHOW_FOR_PAGES = ["https://*.github.com/*"];
 export const MENU_EVENT = "populate_pull_request";
-export const MENU_TITLE = "Populate Pull Request";
 export const MENU_CONTEXT = ["editable"];
 
 export const DOM_ELEMENT_SELECTORS = {

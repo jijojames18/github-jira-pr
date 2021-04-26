@@ -9,23 +9,19 @@ import extensionWindow from "@js/common/context";
 import { togglePopup, selectElementInPopup } from "@js/common/functions";
 
 class ContentScript {
-  PRLabel = "bug";
-  branchName = "";
-  config = {};
-
   constructor(branchType, branchName, config) {
+    this.config = Object.assign({}, DEFAULT_CONFIG, config);
     this.PRLabel = this.getLabelText(branchType);
     this.branchName = branchName;
-    this.config = Object.assign({}, DEFAULT_CONFIG, config);
   }
 
   async exec() {
     // Add reviewers
     await this.addReviewers();
 
-    if (labelText) {
+    if (this.PRLabel) {
       // Add label
-      await addLabel();
+      await this.addLabel();
     }
 
     // Add description
@@ -39,7 +35,7 @@ class ContentScript {
     }
 
     // Add Title
-    await addTitle();
+    await this.addTitle();
   }
 
   /**
