@@ -1,4 +1,5 @@
 {
+  "name": "Github Pull Request Helper",
   "manifest_version": 3,
   "permissions": ["contextMenus"],
   "background": {
