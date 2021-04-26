@@ -8,12 +8,14 @@ export const DOM_ELEMENT_SELECTORS = {
   reviewers: {
     popup: "#reviewers-select-menu .discussion-sidebar-toggle",
     input: "review-filter-field",
-    select: "#reviewers-select-menu .select-menu-item:not([hidden])",
+    select:
+      "#reviewers-select-menu .select-menu-item:not([hidden])[aria-checked='false']",
   },
   labels: {
     popup: "#labels-select-menu .discussion-sidebar-toggle",
     input: "label-filter-field",
-    select: "#labels-select-menu .select-menu-item:not([hidden])",
+    select:
+      "#labels-select-menu .select-menu-item:not([hidden])[aria-checked='false']",
   },
   title: "pull_request_title",
   body: "pull_request_body",
