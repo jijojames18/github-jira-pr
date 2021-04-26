@@ -29,12 +29,25 @@ Copy config.sample.js as config.js.
 
 Field | Type  | Description | Default |
 ------|-------|-------------|---------|
+menuTitle | String | Title of the menu | Populate Pull Request |
 branchSelector | Object |  | |
 branchSelector.bug | Array | Array of identifiers used to detect if branch is for a bug fix  | ["bug"] |
 branchSelector.feature   | Array | Array of identifiers used to detect if branch is for a feature | ["feature"] |
 prTitle| String | Title field for pull request | "" |
 prText| String | Body field of pull request | "" |
 reviewerList  | Array | List of github users to be added as reviewers | [] |
+
+### Available Scripts
+
+In the project directory, you can run:
+
+#### `npm run build`
+
+Builds the project into the `build` folder.
+
+#### `npm run dev`
+
+Watches for changes to the `src` folder and builds the project when changes happen.
 
 ### Documentation ###
 * [Getting started](https://developer.chrome.com/docs/extensions/mv3/getstarted/)  
