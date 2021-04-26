@@ -1,6 +1,6 @@
 // Constants file
 
-export const SHOW_FOR_PAGES = ["https://*.github.com/*"];
+export const SHOW_FOR_PAGES = ["https://*.github.com/*compare*"];
 export const MENU_EVENT = "populate_pull_request";
 export const MENU_CONTEXT = ["editable"];
 
