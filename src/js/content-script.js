@@ -88,7 +88,10 @@ class ContentScript {
         );
         titleElem.value = commitMessage[1].text.trim();
       } else {
-        titleElem.value = this.config.prTitle.replaceAll("{ID}", branchName);
+        titleElem.value = this.config.prTitle.replaceAll(
+          "{ID}",
+          this.branchName
+        );
       }
       titleElem.dispatchEvent(new Event("input", { bubbles: true }));
     }
